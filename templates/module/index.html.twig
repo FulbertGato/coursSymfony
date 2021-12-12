@@ -3,12 +3,16 @@
 {% block title %}Modules{% endblock %}
 
 {% block body %}
+
 <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
                 
-                   {{form(form)}}
+                  {{form_start(form,{"attr":{'class':'form-inline'}})}}
+                        {{form_row(form.libelle)}}
+                        {{form_row(form.Enregistrer)}}
+                  {{form_end(form)}}
                       
                 </div>
             </div>

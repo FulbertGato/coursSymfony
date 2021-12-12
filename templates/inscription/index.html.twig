@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des inscriptions{% endblock %}
+
+{% block body %}
+<div class="row">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-4">
+                    <label for="exampleDataList" class="col-md-2 col-form-label">Classes</label>
+                    <div class="col-md-10">
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Entrez une classes">
+                        <datalist id="datalistOptions">
+                            {% for classe in classes %}
+                               <option value="{{classe.libelle}}">
+                            {% endfor %}
+                        </datalist>
+                    </div>  
+               </div>
+
+               
+            </div>
+       </div>
+</div>
+<div class="row">
+    <div class="card">
+        <div class="card-body">
+          <div class="col-12">
+        
+
+                <h4 class="card-title">Default Datatable</h4>
+                <p class="card-title-desc">DataTables has most features enabled by
+                    default, so all you need to do to use it with your own tables is to call
+                    the construction function: <code>$().DataTable();</code>.
+                </p>
+
+                    {% for message in app.flashes('error_message') %}
+                       <div class="alert alert-danger text-center">{{ message}}</div>
+                    {% endfor %}
+                
+                
+            
+
+                <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Nom & Prénom</th>
+                        <th>Classe</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                        
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                    
+                    {% for i in inscriptions %}
+                    
+                    <tr>
+                        <td>{{i.etudiant.matricule}}</td>
+                        <td>{{i.etudiant.nomComplet}}</td>
+                        
+                        <td>{{i.classe.libelle}}</td>
+                        <td>{{i.etudiant.email}}</td>
+                        
+                        <td>
+                        <a  href="#" class="btn btn-warning" >Absence </a>
+                        <a  href="#" class="btn btn-success" >Réinscription</a>
+                            
+                        </td>
+                        
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+{% endblock %}
+

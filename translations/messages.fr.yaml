@@ -1,0 +1,3 @@
+module :
+  blank  : Ce champ est obligatoire
+  unique : Ce champ doit etre unique

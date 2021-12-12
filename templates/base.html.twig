@@ -54,6 +54,20 @@
                                 <i class="uil-minus-path"></i>
                             </button>
                         </div>
+
+                        <div class="dropdown d-inline-block">
+                            
+                              <label ></label>
+                              <select class="form-control" name="annee" id="selected-annee">
+                                <option >Année scolaire</option>
+                                {% for annee in app.session.get('annees') %}
+                                    <option  data-path="{{path('inscription_annee',{id:annee.id})}}" value="{{annee.id}}">{{annee.libelle}}</option>
+                                {% endfor %}
+                                
+                                
+                              </select>
+                           
+                        </div>
                        
 
 
@@ -71,7 +85,7 @@
                                 <a class="dropdown-item" href="#"><i class="uil uil-wallet font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">My Wallet</span></a>
                                 <a class="dropdown-item d-block" href="#"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Settings</span> <span class="badge bg-soft-success rounded-pill mt-1 ms-2">03</span></a>
                                 <a class="dropdown-item" href="#"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock screen</span></a>
-                                <a class="dropdown-item" href="#"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                                <a class="dropdown-item" href="{{path('app_logout')}}"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                             </div>
                         </div>
 
@@ -131,7 +145,7 @@
                             </li>
 
                             <li>
-                                <a href="index.html">
+                                <a href="{{path('inscriptions')}}">
                                     <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end"></span>
                                     <span>Inscrits</span>
                                 </a>
@@ -175,7 +189,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="calendar.html" class="waves-effect">
+                                <a href="{{path('annee_scolaire_show')}}" class="waves-effect">
                                     <i class="uil-calender"></i>
                                     <span>Année scolaire</span>
                                 </a>
@@ -310,10 +324,42 @@
         <!-- Sweet alert init js-->
         <script src="{{asset('/assets/js/pages/sweet-alerts.init.js')}}"></script>
 
+        <!-- Chart JS -->
+        <script src="{{asset('/assets/libs/chart.js/Chart.bundle.min.js')}}"></script>
+        <script src="{{asset('/assets/js/pages/chartjs.init.js')}}"></script> 
+        
+
         <!-- App js -->
         <script src="{{asset('/assets/js/app.js')}}"></script>
 
-           
+        <script>
+        //function de chargement de la page load
+            $(function(){
+                
+               /*const select = document.getElementById('selectedAnnee');
+               select.addEventListener('change', function(){
+                   alert(select.value);
+               })*/
+
+               $('#selected-annee').on("change",function(){
+                   const path=$(this).find(':selected').data('path');
+                 //  alert(path);
+                   $.ajax({
+                   url:  path,
+                   type: "GET",
+                   dataType: 'JSON', //or html or whatever you want
+                   success:function(data) {
+                      window.location.href=data
+                     //console.log(data);
+                   }
+                 });
+
+                 
+
+               })
+            });
+        </script>
+        
         {% endblock %}
     </body>
 </html>

@@ -2,21 +2,33 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\AnneeScolaireRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/", name="app_login")
+     * @Route("/", name="app_login", methods={"GET","POST"})
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils,Request $request,
+    AnneeScolaireRepository $repo,SessionInterface $session): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        //Si utilisateur connecter
+        if ($this->getUser()) {
+
+
+            //recuperation annee scolaire
+            $annees= $repo->findAll();
+
+            $session->set('annees',$annees);
+            return $this->redirectToRoute('classe_show');
+           
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

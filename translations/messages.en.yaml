@@ -1,0 +1,3 @@
+module :
+  blank  : The Field is required
+  unique : This field must be unique

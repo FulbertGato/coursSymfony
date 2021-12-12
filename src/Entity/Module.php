@@ -10,9 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=ModuleRepository::class)
- * @UniqueEntity(
- * fields={"libelle"},
- * message="Ce module existe déja ")
  */
 class Module
 {
@@ -25,7 +22,6 @@ class Module
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="ce champ est obligatoire")
      */
     private $libelle;
 

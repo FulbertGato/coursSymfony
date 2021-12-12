@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GatoController!{% endblock %}
+
+{% block body %}
+<div class="row">
+
+       
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="card-title mb-4">Bar Chart</h4>
+
+                <canvas id="classe" width="150" height="150"></canvas>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let classes = document.querySelector("#classe")
+    
+    /* let etuGraph = new Chart(classes,{
+        type: "bar",
+        data: {
+                label:["classe1","classe2","classe3"],
+                datasets:[
+                { 
+                    label: "repartition des classes",
+                    data:[1, 2, 3],
+                    backgroundColor:["red","blue","green"]
+                }]
+        }
+    }); */
+
+    let etuGraph = new Chart(classes,{
+        type: "bar",
+        data: {
+                label: ['classe1','classe','classe3'],
+                datasets: [{
+                            label: 'My First Dataset',
+                            data: [65, 59, 80]
+                        }],
+                backgroundColor: [
+                            'red',
+                            'blue',
+                            'green'
+                            ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)'
+                    ],
+                    borderWidth: 1
+     },
+     options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+    }
+  }
+    });
+
+</script>
+
+{% endblock %}
